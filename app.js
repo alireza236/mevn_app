@@ -6,7 +6,9 @@ const bodyParser = require('body-parser');
 const logger = require('morgan');
 const ev = require('express-validation');
 const parseError = require('parse-error');
+const passport = require('passport');
 const apiRoutes = require('./modules');
+require('./middleware/auth.middleware');
 require('./modules/config/database');
 const app = express();
 
@@ -17,6 +19,7 @@ const app = express();
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser());
+app.use(passport.initialize());
 //app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', function(req, res) {
@@ -36,6 +39,11 @@ app.get('/', function(req, res) {
   	  }
   })
 });
+
+app.get('/hello',passport.authenticate('jwt',{session: false}),function(req, res){
+    res.status(200).send({status:"success"})
+})
+
 
 apiRoutes(app);
 
