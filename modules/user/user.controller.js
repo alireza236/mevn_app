@@ -12,7 +12,7 @@ const User = require('./user.models');
 };
 
  userController.login = async (req, res, next) => {
-    res.status(200).send(req.user.toAuthJSON());
+    res.status(200).json(req.user.toAuthJSON());
     return next();
 };
 

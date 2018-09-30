@@ -41,7 +41,8 @@ app.get('/', function(req, res) {
 });
 
 app.get('/hello',passport.authenticate('jwt',{session: false}),function(req, res){
-    res.status(200).send({status:"success"})
+   
+    res.status(200).send(req.user)
 })
 
 

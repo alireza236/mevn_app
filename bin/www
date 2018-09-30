@@ -28,7 +28,7 @@ const server = http.createServer(app);
 	if (err) {
 		throw err;
 	}else{
-		    console.log(` Server running on port: ${port} --- Running on ${process.env.NODE_ENV} --- Service is running`);
+		    console.log(` Server running on port: ${port} --- :Service is running...`);
 		    const bind = typeof server.address() === 'string' ? 'pipe ' + server.address : 'port ' + server.address().port;
         debug('Listening on ' + bind);
 	   }
