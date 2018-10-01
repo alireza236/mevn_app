@@ -49,7 +49,9 @@ export default [
 },
 {
     path: '/',
-    meta: {},
+    meta: {
+      requiresAuth: true
+    },
     name: 'Root',
     redirect: {
       name: 'Dashboard'
@@ -57,8 +59,13 @@ export default [
   },
   {
     path: '/',
-    meta: {},
+    meta: {
+      requiresAuth: true
+    },
     name: 'Dashboard',
+    meta: {
+      requiresAuth: true
+    },
     redirect:'/user',
     component: () => import(
       /* webpackChunkName: "routes" */
@@ -69,12 +76,18 @@ export default [
       {
         path:'/user',
         name:'User',
-        component:() => import(`../components/User.vue`)
+        component:() => import(`../components/User.vue`),
+        meta: {
+          requiresAuth: true
+        },
       },
       {
         path:'/book',
         name:'Book',
-        component:() => import(`../components/Book.vue`)
+        component:() => import(`../components/Book.vue`),
+        meta: {
+          requiresAuth: true
+        },
       },
     ]
   },

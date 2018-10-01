@@ -7,6 +7,7 @@ const logger = require('morgan');
 const ev = require('express-validation');
 const parseError = require('parse-error');
 const passport = require('passport');
+const cors = require('cors');
 const apiRoutes = require('./modules');
 require('./middleware/auth.middleware');
 require('./modules/config/database');
@@ -20,6 +21,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser());
 app.use(passport.initialize());
+app.use(cors());
 //app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', function(req, res) {
@@ -41,7 +43,7 @@ app.get('/', function(req, res) {
 });
 
 app.get('/hello',passport.authenticate('jwt',{session: false}),function(req, res){
-   
+
     res.status(200).send(req.user)
 })
 

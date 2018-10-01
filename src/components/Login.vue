@@ -8,11 +8,11 @@
              <v-card-text>
                <div class="layout column align-center">
                  <!-- <img src="/static/m.png" alt="Vue Material Admin" width="120" height="120"> -->
-                 <h1 class="flex my-4 primary--text">Material Admin Template</h1>
+                 <h1 class="flex my-4 primary--text">Login</h1>
                </div>
                <v-form>
-                 <v-text-field append-icon="person" name="login" label="Login" type="text" v-model="model.username"></v-text-field>
-                 <v-text-field append-icon="lock" name="password" label="Password" id="password" type="password" v-model="model.password"></v-text-field>
+                 <v-text-field append-icon="mail" name="email" label="Email" type="text" v-model="email"></v-text-field>
+                 <v-text-field append-icon="lock" name="password" label="Password" id="password" type="password" v-model="password"></v-text-field>
                </v-form>
              </v-card-text>
              <v-card-actions>
@@ -39,22 +39,22 @@
 <script>
 export default {
  data: () => ({
-   loading: false,
-   model: {
-     username: 'admin@isockde.com',
-     password: 'password'
-   }
+     loading: false,
+     email: '',
+     password: ''
  }),
-
  methods: {
    login () {
      this.loading = true;
-     setTimeout(() => {
-       this.$router.push('/dashboard');
+      setTimeout(() => {
+        let email = this.email
+        let password = this.password
+        this.$store.dispatch('login', { email, password })
+        .then(() => this.$router.push('/'))
+        .catch(err => console.log(err))
      }, 1000);
    }
  }
-
 };
 </script>
 <style scoped lang="css">

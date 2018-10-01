@@ -10,26 +10,52 @@
                  <!-- <img src="/static/m.png" alt="Vue Material Admin" width="120" height="120"> -->
                  <h1 class="flex my-4 primary--text">Register</h1>
                </div>
-               <v-form>
-                 <v-text-field append-icon="person" name="login" label="Login" type="text" v-model="model.username"></v-text-field>
-                 <v-text-field append-icon="mail" name="email" label="Email" type="email" v-model="model.email"></v-text-field>
-                 <v-text-field append-icon="lock" name="password" label="Password" id="password" type="password" v-model="model.password"></v-text-field>
-                 <v-text-field append-icon="lock" name="confirmpassword" label="confirmpassword" id="confirmpassword" type="password" v-model="model.password"></v-text-field>
+               <v-form @submit.prevent="register">
+                       <v-text-field
+                            append-icon="person"
+                            name="firstName"
+                            label="Firstname"
+                            type="text"
+                            v-model="firstName">
+                       </v-text-field>
+                       <v-text-field
+                            append-icon="person"
+                            name="lastName"
+                            label="Lastname"
+                            type="text"
+                            v-model="lastName">
+                       </v-text-field>
+                       <v-text-field
+                            append-icon="mail"
+                            name="email"
+                            label="Email"
+                            type="email"
+                            v-model="email">
+                      </v-text-field>
+                       <v-text-field
+                             append-icon="lock"
+                             name="password"
+                             label="Password"
+                             id="password"
+                             type="password"
+                             v-model="password">
+                        </v-text-field>
+                        <v-card-actions>
+                          <v-btn icon>
+                            <v-icon color="blue">fa fa-facebook-square fa-lg</v-icon>
+                          </v-btn>
+                          <v-btn icon>
+                            <v-icon color="red">fa fa-google fa-lg</v-icon>
+                          </v-btn>
+                          <v-btn icon>
+                            <v-icon color="light-blue">fa fa-twitter fa-lg</v-icon>
+                          </v-btn>
+                          <v-spacer></v-spacer>
+                          <v-btn block color="primary" @click="register" :loading="loading">Login</v-btn>
+                        </v-card-actions>
                </v-form>
              </v-card-text>
-             <v-card-actions>
-               <v-btn icon>
-                 <v-icon color="blue">fa fa-facebook-square fa-lg</v-icon>
-               </v-btn>
-               <v-btn icon>
-                 <v-icon color="red">fa fa-google fa-lg</v-icon>
-               </v-btn>
-               <v-btn icon>
-                 <v-icon color="light-blue">fa fa-twitter fa-lg</v-icon>
-               </v-btn>
-               <v-spacer></v-spacer>
-               <v-btn block color="primary" @click="login" :loading="loading">Login</v-btn>
-             </v-card-actions>
+
            </v-card>
          </v-flex>
        </v-layout>
@@ -41,24 +67,31 @@
 <script>
 export default {
  data: () => ({
-   loading: false,
-   model: {
-     username: 'alireza',
-     email: 'admin@isockde.com',
-     password: 'password'
-   }
+     loading: false,
+     firstName: '',
+     lastName: '',
+     email: '',
+     password: '',
+     is_admin : null
  }),
-
  methods: {
-   login () {
+   register() {
      this.loading = true;
-     setTimeout(() => {
-       this.$router.push('/dashboard');
-     }, 1000);
+       setTimeout(() => {
+       let data = {
+         firstName: this.firstName,
+         lastName: this.lastName,
+         email: this.email,
+         password: this.password,
+         is_admin: this.is_admin
+     }
+      this.$store.dispatch('register', data)
+       .then(() => this.$router.push('/login'))
+       .catch(err => console.log(err))
+      },1000)
+     }
    }
  }
-
-};
 </script>
 <style scoped lang="css">
  #login {
