@@ -5,7 +5,9 @@
       <header-layout></header-layout>
       <v-content>
         <v-container fluid>
-          <router-view></router-view>
+           <fade-transition origin="center" mode="out-in" :duration="250">
+             <router-view></router-view>
+           </fade-transition>
         </v-container>
       </v-content>
     <footer-layout></footer-layout>

@@ -5,30 +5,58 @@
        <v-layout align-center justify-center>
          <v-flex xs12 sm8 md4 lg4>
            <v-card class="elevation-1 pa-3">
+
              <v-card-text>
                <div class="layout column align-center">
                  <!-- <img src="/static/m.png" alt="Vue Material Admin" width="120" height="120"> -->
                  <h1 class="flex my-4 primary--text">Login</h1>
                </div>
-               <v-form>
+               <v-form class="login" @submit.prevent="login">
                  <v-text-field append-icon="mail" name="email" label="Email" type="text" v-model="email"></v-text-field>
                  <v-text-field append-icon="lock" name="password" label="Password" id="password" type="password" v-model="password"></v-text-field>
+                 <v-card-actions>
+                   <v-btn icon>
+                     <v-icon color="blue">fa fa-facebook-square fa-lg</v-icon>
+                   </v-btn>
+                   <v-btn icon>
+                     <v-icon color="red">fa fa-google fa-lg</v-icon>
+                   </v-btn>
+                   <v-btn icon>
+                     <v-icon color="light-blue">fa fa-twitter fa-lg</v-icon>
+                   </v-btn>
+                   <v-spacer></v-spacer>
+                   <v-btn block
+                     color="primary"
+                     type="submit"
+                     @click="dialog = true"
+                     :loading="loading">Login</v-btn>
+                 </v-card-actions>
                </v-form>
              </v-card-text>
-             <v-card-actions>
-               <v-btn icon>
-                 <v-icon color="blue">fa fa-facebook-square fa-lg</v-icon>
-               </v-btn>
-               <v-btn icon>
-                 <v-icon color="red">fa fa-google fa-lg</v-icon>
-               </v-btn>
-               <v-btn icon>
-                 <v-icon color="light-blue">fa fa-twitter fa-lg</v-icon>
-               </v-btn>
-               <v-spacer></v-spacer>
-               <v-btn block color="primary" @click="login" :loading="loading">Login</v-btn>
-             </v-card-actions>
+
            </v-card>
+           <div class="text-xs-center">
+             <v-dialog
+                 v-model="loading"
+                 hide-overlay
+                 persistent
+                 width="300"
+               >
+                 <v-card
+                   color="primary"
+                   dark
+                 >
+                   <v-card-text>
+                     ...Please Wait...
+                     <v-progress-linear
+                       indeterminate
+                       color="white"
+                       class="mb-0"
+                     ></v-progress-linear>
+                   </v-card-text>
+                 </v-card>
+               </v-dialog>
+           </div>
          </v-flex>
        </v-layout>
      </v-container>
@@ -41,20 +69,27 @@ export default {
  data: () => ({
      loading: false,
      email: '',
-     password: ''
+     password: '',
+     dialog:false
  }),
  methods: {
    login () {
      this.loading = true;
       setTimeout(() => {
-        let email = this.email
-        let password = this.password
-        this.$store.dispatch('login', { email, password })
-        .then(() => this.$router.push('/'))
-        .catch(err => console.log(err))
-     }, 1000);
-   }
- }
+         let email = this.email
+         let password = this.password
+          this.$store.dispatch('login', { email, password })
+          .then(() => this.$router.push('/'))
+          .catch(err => console.log(err))
+      }, 2000);
+    }
+  },
+  watch:{
+   dialog (val) {
+        if (!val) return
+        setTimeout(() => (this.loading = false), 1000)
+      }
+  }
 };
 </script>
 <style scoped lang="css">
