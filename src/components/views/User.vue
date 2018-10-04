@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import { Items as Users } from './mock_api/user';
+import { Items as Users } from '../mock_api/user';
 export default {
   data () {
     return {
@@ -77,6 +77,6 @@ export default {
       }
     };
   },
-  
+
 };
 </script>

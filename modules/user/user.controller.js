@@ -15,4 +15,8 @@ const User = require('./user.models');
     res.status(200).json(req.user.toAuthJSON());
 };
 
+userController.profile = async (req, res) => {
+   res.status(200).json(req.user.toJSON());
+};
+
 module.exports = userController;

@@ -8,7 +8,8 @@ export default new Vuex.Store({
   state: {
     status: '',
     token: localStorage.getItem('token') || '',
-    user : {}
+    user :  {},
+    profile: JSON.parse(localStorage.getItem('user')) || ''
   },
   mutations: {
       auth_request(state){
@@ -26,6 +27,9 @@ export default new Vuex.Store({
         state.status = ''
         state.token = ''
       },
+      auth_profil(state){
+        state.profile = ''
+      }
   },
   actions: {
     login({commit}, user){
@@ -48,17 +52,21 @@ export default new Vuex.Store({
      register({commit}, user){
        return new Promise((resolve, reject) => {
            commit('auth_request')
-             axios({url: 'http://127.0.0.1:3000/api/v1/users/signup', data: user, method: 'POST' }).then(resp => {
-             const token = resp.data.token
-             const user = resp.data.user
-             localStorage.setItem('token', token)
-             axios.defaults.headers.common['Authorization'] = token
-             commit('auth_success', token, user)
-             resolve(resp)
-         }).catch(err => {
-            commit('auth_error', err)
-            localStorage.removeItem('token')
-            reject(err)
+             axios({
+               url: 'http://127.0.0.1:3000/api/v1/users/signup',
+               data: user,
+               method: 'POST'
+             }).then(resp => {
+               const token = resp.data.token
+               const user = resp.data.user
+               localStorage.setItem('token', token)
+               axios.defaults.headers.common['Authorization'] = token
+               commit('auth_success', token, user)
+               resolve(resp)
+            }).catch(err => {
+               commit('auth_error', err)
+               localStorage.removeItem('token')
+               reject(err)
         })
       })
     },
@@ -69,10 +77,25 @@ export default new Vuex.Store({
         delete axios.defaults.headers.common['Authorization']
         resolve()
       })
+    },
+    userprofile({commit}){
+      return new Promise((resolve,reject)=>{
+        commit('auth_request')
+        axios({
+          url: 'http://127.0.0.1:3000/profile',
+          method:'GET'
+        }).then(res=>{
+           commit('auth_profil',res)
+        }).catch(err=>{
+          commit('auth_error', err)
+          reject(err)
+        })
+      })
     }
   },
   getters : {
      isLoggedIn: state => !!state.token,
      authStatus: state => state.status,
+     isUser: state => state.user,
   }
 })

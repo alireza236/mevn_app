@@ -9,4 +9,6 @@ router.post('/signup',validate(userValidation.signup),userController.signUp);
 
 router.post('/login',passport.authenticate('local', { session: false }),userController.login);
 
+router.get('/',passport.authenticate('jwt', { session: false }),userController.profile);
+
 module.exports = router;

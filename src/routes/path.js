@@ -76,7 +76,7 @@ export default [
       {
         path:'/user',
         name:'User',
-        component:() => import(`../components/User.vue`),
+        component:() => import(`../components/views/User.vue`),
         meta: {
           requiresAuth: true
         },
@@ -84,7 +84,7 @@ export default [
       {
         path:'/book',
         name:'Book',
-        component:() => import(`../components/Book.vue`),
+        component:() => import(`../components/views/Book.vue`),
         meta: {
           requiresAuth: true
         },

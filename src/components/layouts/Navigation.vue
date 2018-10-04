@@ -69,7 +69,7 @@
    }),
    async created(){
        try {
-         const response = await axios.get('http://127.0.0.1:3000/profile');
+         const response = await axios.get('http://127.0.0.1:3000/api/v1/users');
           this.username = response.data.firstName+' '+response.data.lastName;
        } catch (error) {
          this.errors.push(error)
