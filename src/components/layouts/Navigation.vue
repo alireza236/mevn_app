@@ -12,7 +12,12 @@
                <img src="https://randomuser.me/api/portraits/men/85.jpg">
              </v-list-tile-avatar>
              <v-list-tile-content>
-               <v-list-tile-title>John Leider</v-list-tile-title>
+               <v-list-tile-title v-if="fullName && fullName.length">
+                 {{fullName}}
+               </v-list-tile-title>
+               <v-list-tile-title v-if="errors && errors.length">
+                 {{errors.message}}
+               </v-list-tile-title>
              </v-list-tile-content>
            </v-list-tile>
          </v-list>
@@ -55,10 +60,26 @@
    </div>
  </template>
  <script>
+ import axios from 'axios';
  export default {
    data: () => ({
-     drawer:null
-   })
+     drawer:null,
+     username:'' ,
+     errors: []
+   }),
+   async created(){
+       try {
+         const response = await axios.get('http://127.0.0.1:3000/profile');
+          this.username = response.data.firstName+' '+response.data.lastName;
+       } catch (error) {
+         this.errors.push(error)
+       }
+   },
+   computed: {
+    fullName: function () {
+      return this.username
+    }
+  }
  }
  </script>
  <style lang="scss" scoped>

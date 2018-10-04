@@ -12,13 +12,19 @@
       </v-btn>
     </v-toolbar-items>
   </v-toolbar>
+
 </template>
+
 <script>
   export default {
+    data: ()=>({
+       dialog:''
+    }),
     computed : {
       isLoggedIn : function(){
         return this.$store.getters.isLoggedIn
-      }
+      },
+
     },
     methods: {
       logout: function () {

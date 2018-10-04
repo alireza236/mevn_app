@@ -41,7 +41,7 @@
                              v-model="password">
                         </v-text-field>
                         <v-card-actions>
-                          <v-btn icon>
+                          <!-- <v-btn icon>
                             <v-icon color="blue">fa fa-facebook-square fa-lg</v-icon>
                           </v-btn>
                           <v-btn icon>
@@ -49,9 +49,9 @@
                           </v-btn>
                           <v-btn icon>
                             <v-icon color="light-blue">fa fa-twitter fa-lg</v-icon>
-                          </v-btn>
+                          </v-btn> -->
                           <v-spacer></v-spacer>
-                          <v-btn block color="primary" @click="register" :loading="loading">Login</v-btn>
+                          <v-btn block color="primary" @click="register" :loading="loading">Submit</v-btn>
                         </v-card-actions>
                </v-form>
              </v-card-text>

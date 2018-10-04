@@ -42,9 +42,9 @@ app.get('/', function(req, res) {
   })
 });
 
-app.get('/hello',passport.authenticate('jwt',{session: false}),function(req, res){
-
-    res.status(200).send(req.user)
+app.get('/profile',passport.authenticate('jwt',{session: false}),
+    function(req, res){
+      res.status(200).json(req.user.toJSON())
 })
 
 

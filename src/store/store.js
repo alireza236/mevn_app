@@ -11,7 +11,7 @@ export default new Vuex.Store({
     user : {}
   },
   mutations: {
-    auth_request(state){
+      auth_request(state){
         state.status = 'loading'
       },
       auth_success(state, token, user){

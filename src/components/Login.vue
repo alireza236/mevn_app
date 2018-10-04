@@ -12,10 +12,10 @@
                  <h1 class="flex my-4 primary--text">Login</h1>
                </div>
                <v-form class="login" @submit.prevent="login">
-                 <v-text-field append-icon="mail" name="email" label="Email" type="text" v-model="email"></v-text-field>
-                 <v-text-field append-icon="lock" name="password" label="Password" id="password" type="password" v-model="password"></v-text-field>
+                 <v-text-field append-icon="mail" name="email" label="Email" type="text" v-model="email" required></v-text-field>
+                 <v-text-field append-icon="lock" name="password" label="Password" id="password" type="password" v-model="password" required></v-text-field>
                  <v-card-actions>
-                   <v-btn icon>
+                   <!-- <v-btn icon>
                      <v-icon color="blue">fa fa-facebook-square fa-lg</v-icon>
                    </v-btn>
                    <v-btn icon>
@@ -23,7 +23,14 @@
                    </v-btn>
                    <v-btn icon>
                      <v-icon color="light-blue">fa fa-twitter fa-lg</v-icon>
-                   </v-btn>
+                   </v-btn> -->
+                   <!-- <v-btn block
+                     color="success"
+                     type="submit"
+                     @click="dialog = true"
+                     :loading="loading">Register</v-btn> -->
+                    Have not account.?
+                   <router-link :to="{ name: 'Register'}">Register</router-link>
                    <v-spacer></v-spacer>
                    <v-btn block
                      color="primary"
@@ -81,7 +88,7 @@ export default {
           this.$store.dispatch('login', { email, password })
           .then(() => this.$router.push('/'))
           .catch(err => console.log(err))
-      }, 2000);
+      }, 1000);
     }
   },
   watch:{
